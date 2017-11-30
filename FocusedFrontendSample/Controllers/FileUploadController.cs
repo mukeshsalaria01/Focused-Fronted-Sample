@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -39,8 +37,6 @@ namespace FocusedFrontendSample.Controllers
                             return new KeyValuePair<bool, string>(false, "Please select an image.");
                         }
                         // Validate the uploaded image(optional)
-
-                       
                     }
 
                     return new KeyValuePair<bool, string>(true, "Could not get the uploaded image.");

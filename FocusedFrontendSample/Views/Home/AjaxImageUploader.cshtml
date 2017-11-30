@@ -25,17 +25,15 @@
                         data: data
                     });
                     ajaxRequest.done(function (responseData, textStatus) {
-                        if (textStatus == 'success') {
+                        if (textStatus === 'success') {
                             if (responseData != null) {
                                 if (responseData.Key) {
-
                                     $("#lblError").text(responseData.Value);
                                     $("#lblError").addClass('text-success');
                                     $("#lblError").removeClass('text-danger');
                                     $("#fileUpload").val('');
 
                                 } else {
-
                                     $("#lblError").text(responseData.Value);
                                     $("#lblError").addClass('text-danger');
                                     $("#lblError").removeClass('text-success');
@@ -43,14 +41,12 @@
                                 }
                             }
                         } else {
-
                             $("#lblError").text(responseData.Value);
                             $("#lblError").addClass('text-danger');
                             $("#lblError").removeClass('text-success');
                         }
                     });
                 } else {
-
                     $("#lblError").text("Please select an image to upload ");
                     $("#lblError").addClass('text-danger');
                     $("#lblError").removeClass('text-success');
