@@ -1,0 +1,61 @@
+﻿<form class="form-signin" id="form1">
+    <div>
+        <label for="fileUpload">Select File to Upload:</label>
+        <input type="file" id="fileUpload" />
+        <br />
+        <input type="button" class="btn btn-primary" value="Upload File" id="btnUploadFile" />
+        <label class="text-danger" id="lblError"></label>
+    </div>
+</form>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnUploadFile').on('click', function () {
+                var data = new FormData();
+                var files = $("#fileUpload").get(0).files;
+                // Add the uploaded image content to the form data collection
+                if (files.length > 0) {
+                    data.append("UploadedImage", files[0]);
+                    // Make Ajax request with the contentType = false, and procesDate = false
+                    var ajaxRequest = $.ajax({
+                        type: "POST",
+                        url: "/api/FileUpload/UploadFile",
+                        contentType: false,
+                        processData: false,
+                        data: data
+                    });
+                    ajaxRequest.done(function (responseData, textStatus) {
+                        if (textStatus == 'success') {
+                            if (responseData != null) {
+                                if (responseData.Key) {
+
+                                    $("#lblError").text(responseData.Value);
+                                    $("#lblError").addClass('text-success');
+                                    $("#lblError").removeClass('text-danger');
+                                    $("#fileUpload").val('');
+
+                                } else {
+
+                                    $("#lblError").text(responseData.Value);
+                                    $("#lblError").addClass('text-danger');
+                                    $("#lblError").removeClass('text-success');
+
+                                }
+                            }
+                        } else {
+
+                            $("#lblError").text(responseData.Value);
+                            $("#lblError").addClass('text-danger');
+                            $("#lblError").removeClass('text-success');
+                        }
+                    });
+                } else {
+
+                    $("#lblError").text("Please select an image to upload ");
+                    $("#lblError").addClass('text-danger');
+                    $("#lblError").removeClass('text-success');
+                }
+            });
+        });
+    </script>
+}
